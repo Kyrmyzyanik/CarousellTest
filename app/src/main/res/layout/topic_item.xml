@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:layout_height="wrap_content"
     android:background="@drawable/touch_feedback"
     android:orientation="vertical"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingBottom="@dimen/list_item_padding"
-    android:paddingTop="@dimen/list_item_padding">
-
+    android:padding="@dimen/list_item_padding">
 
     <TextView
         android:id="@+id/title"
@@ -20,28 +16,38 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/list_item_padding"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:background="@drawable/touch_feedback"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingBottom="@dimen/list_item_padding"
-        android:paddingTop="@dimen/list_item_padding">
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/upvote"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="left"
+            android:gravity="left"
+            android:background="@drawable/ic_upvote"/>
         <TextView
+            android:id="@+id/upvote_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:text="hdsakdhkajhjk"/>
+            android:text="1"/>
 
+        <Button
+            android:id="@+id/downvote"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="64dp"
+            android:layout_gravity="right"
+            android:gravity="right"
+            android:background="@drawable/ic_downvote"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/downvote_count"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+            android:text="1"/>
     </LinearLayout>
 </LinearLayout>

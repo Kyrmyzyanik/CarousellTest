@@ -33,4 +33,8 @@ public interface TopicsDataSource {
     void deleteAllTopics();
 
     void refreshTopics();
+
+    void upVoteTppic(@NonNull Topic topic);
+
+    void downVoteTppic(@NonNull Topic topic);
 }

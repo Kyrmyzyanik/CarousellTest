@@ -6,6 +6,7 @@ package com.kyrmyzyanik.carouselltest.data.source;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.kyrmyzyanik.carouselltest.data.Topic;
 
@@ -49,14 +50,6 @@ public class TopicsRepository implements TopicsDataSource {
             INSTANCE = new TopicsRepository(topicsLocalDataSource);
         }
         return INSTANCE;
-    }
-
-    /**
-     * Used to force {@link #getInstance(TopicsDataSource)} to create a new instance
-     * next time it's called.
-     */
-    public static void destroyInstance() {
-        INSTANCE = null;
     }
 
     /**
@@ -111,6 +104,16 @@ public class TopicsRepository implements TopicsDataSource {
         mCacheIsDirty = true;
     }
 
+    @Override
+    public void upVoteTppic(@NonNull Topic topic) {
+        saveTopic(topic);
+    }
+
+    @Override
+    public void downVoteTppic(@NonNull Topic topic) {
+        saveTopic(topic);
+    }
+
     private void refreshCache(List<Topic> topics) {
         if (mCachedTopics == null) {
             mCachedTopics = new LinkedHashMap<>();
@@ -118,16 +121,6 @@ public class TopicsRepository implements TopicsDataSource {
         mCachedTopics.clear();
         for (Topic topic : topics) {
             mCachedTopics.put(topic.getId(), topic);
-        }
-    }
-
-    @Nullable
-    private Topic getTaskWithId(@NonNull String id) {
-        checkNotNull(id);
-        if (mCachedTopics == null || mCachedTopics.isEmpty()) {
-            return null;
-        } else {
-            return mCachedTopics.get(id);
-        }
+}
     }
 }

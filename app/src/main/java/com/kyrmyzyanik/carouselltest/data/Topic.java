@@ -21,6 +21,7 @@ public class Topic {
 
     @Nullable
     private String mTitle = new String();
+
     @NonNull
     private int mUpVote = 0;
     @NonNull
@@ -64,6 +65,14 @@ public class Topic {
         return mTitle;
     }
 
+    public void setUpVote(@NonNull int mUpVote) {
+        this.mUpVote = mUpVote;
+    }
+
+    public void setDownVote(@NonNull int mDownVote) {
+        this.mDownVote = mDownVote;
+    }
+
     @NonNull
     public int getUpVote() {
         return mUpVote;
@@ -85,6 +94,12 @@ public class Topic {
                 Objects.equal(mDownVote, topic.mDownVote);
     }
 
+    public boolean isEmpty() {
+        if(mTitle.length() ==0 || mTitle == null) {
+            return true;
+        }
+        return false;
+    }
     @Override
     public int hashCode() {
         return Objects.hashCode(mId, mTitle, mUpVote, mUpVote);

@@ -115,4 +115,14 @@ public class TopicsLocalDataSource implements TopicsDataSource {
     public void refreshTopics() {
 
     }
+
+    @Override
+    public void upVoteTppic(@NonNull Topic topic) {
+        saveTopic(topic);
+    }
+
+    @Override
+    public void downVoteTppic(@NonNull Topic topic) {
+        saveTopic(topic);
+    }
 }

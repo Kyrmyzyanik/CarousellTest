@@ -40,5 +40,9 @@ public interface TopicsContract {
         void loadTopics(boolean forceUpdate);
 
         void addNewTopic();
+
+        void upVote(Topic upVote);
+
+        void downVote(Topic downVote);
     }
 }

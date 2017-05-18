@@ -13,13 +13,16 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kyrmyzyanik.carouselltest.R;
 import com.kyrmyzyanik.carouselltest.addtopic.AddTopicActivity;
@@ -57,7 +60,7 @@ public class TopicsFragment extends Fragment implements TopicsContract.View {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mListAdapter = new TopicsAdapter(new ArrayList<Topic>(0));
+        mListAdapter = new TopicsAdapter(new ArrayList<Topic>(0), mItemListener);
     }
 
     @Override
@@ -133,6 +136,20 @@ public class TopicsFragment extends Fragment implements TopicsContract.View {
         return root;
     }
 
+    TopicItemListener mItemListener = new TopicItemListener() {
+        @Override
+        public void onUpVoteClick(Topic upVoteTopic) {
+            mPresenter.upVote(upVoteTopic);
+        }
+
+        @Override
+        public void onDownVoteClick(Topic downVoteTopic) {
+            mPresenter.downVote(downVoteTopic);
+        }
+
+
+    };
+
     @Override
     public void setLoadingIndicator(final boolean active) {
 
@@ -203,8 +220,11 @@ public class TopicsFragment extends Fragment implements TopicsContract.View {
 
         private List<Topic> mTopics;
 
-        public TopicsAdapter(List<Topic> topics) {
+        private TopicItemListener mItemListener;
+
+        public TopicsAdapter(List<Topic> topics, TopicItemListener itemListener) {
             setList(topics);
+            mItemListener = itemListener;
         }
 
         public void replaceData(List<Topic> topics) {
@@ -241,10 +261,47 @@ public class TopicsFragment extends Fragment implements TopicsContract.View {
 
             final Topic topic = getItem(i);
 
+            Button upVote = (Button) rowView.findViewById(R.id.upvote);
+            Button downVote = (Button) rowView.findViewById(R.id.downvote);
             TextView titleTV = (TextView) rowView.findViewById(R.id.title);
+            TextView upVoteCount = (TextView) rowView.findViewById(R.id.upvote_count);
+            TextView downVoteCount = (TextView) rowView.findViewById(R.id.downvote_count);
+
             titleTV.setText(topic.getTitle());
+            upVoteCount.setText(topic.getUpVote() + "");
+            downVoteCount.setText(topic.getDownVote() + "");
+
+
+
+            upVote.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int n = topic.getUpVote() + 1;
+                    topic.setUpVote(n);
+                    mItemListener.onUpVoteClick(topic);
+                    Log.e(" --- "," --- upvote");
+                }
+            });
+
+            downVote.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int n = topic.getDownVote() + 1;
+                    topic.setDownVote(n);
+
+                    mItemListener.onDownVoteClick(topic);
+                    Log.e(" --- "," --- downvote");
+                }
+            });
 
             return rowView;
         }
+    }
+
+    public interface TopicItemListener {
+
+        void onUpVoteClick(Topic upVoteTopic);
+
+        void onDownVoteClick(Topic downVoteTopic);
     }
 }

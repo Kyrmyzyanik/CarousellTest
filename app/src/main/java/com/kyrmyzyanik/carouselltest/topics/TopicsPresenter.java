@@ -6,6 +6,7 @@ package com.kyrmyzyanik.carouselltest.topics;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.kyrmyzyanik.carouselltest.addtopic.AddTopicActivity;
 import com.kyrmyzyanik.carouselltest.data.Topic;
@@ -112,5 +113,18 @@ public class TopicsPresenter implements TopicsContract.Presenter {
     @Override
     public void addNewTopic() {
         mTopicsView.showAddTopic();
+    }
+
+    @Override
+    public void upVote(Topic upVote) {
+        mTopicsRepository.upVoteTppic(upVote);
+        Log.e(" --- "," --- upvote 1");
+        loadTasks(false, false);
+    }
+
+    @Override
+    public void downVote(Topic downVote) {
+        mTopicsRepository.downVoteTppic(downVote);
+        loadTasks(false, false);
     }
 }
