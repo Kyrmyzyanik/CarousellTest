@@ -118,6 +118,7 @@ public class TopicsPresenter implements TopicsContract.Presenter {
     }
     //Show top 20 topics first
     public List<Topic> showTopTopics(List<Topic> topics) {
+        List<Topic> topicsNormal = topics;
         List<Topic> topicsResult = new ArrayList<Topic>();
         List<Topic> topicsSorted = doSortShowTopTopics(topics);
         ArrayList<String> ids = new ArrayList<String>();
@@ -136,16 +137,16 @@ public class TopicsPresenter implements TopicsContract.Presenter {
         }
 
         //Add to topicsResult another topics ecxept 20 top topics
-        for(int i = 0; i < topics.size(); i++) {
+        for(int i = 0; i < topicsNormal.size(); i++) {
             boolean isEqual = false;
             for(int j = 0; j < ids.size(); j++) {
-                if(topics.get(i).getId().equals(ids.get(j))) {
+                if(topicsNormal.get(i).getId().equals(ids.get(j))) {
                     isEqual = true;
                 }
             }
 
             if(!isEqual){
-                topicsResult.add(topics.get(i));
+                topicsResult.add(topicsNormal.get(i));
             }
         }
         return topicsResult;
