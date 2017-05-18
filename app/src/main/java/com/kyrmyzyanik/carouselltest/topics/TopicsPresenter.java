@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.google.common.base.Strings;
 import com.kyrmyzyanik.carouselltest.addtopic.AddTopicActivity;
 import com.kyrmyzyanik.carouselltest.data.Topic;
 import com.kyrmyzyanik.carouselltest.data.source.TopicsDataSource;
@@ -71,8 +72,8 @@ public class TopicsPresenter implements TopicsContract.Presenter {
             @Override
             public void onTopicsLoaded(List<Topic> topics) {
                 List<Topic> topicsToShow = new ArrayList<Topic>();
-
-                for (Topic topic : topics) {
+                List<Topic> topicsSorted = showTopTopics(topics);
+                for (Topic topic : topicsSorted) {
                     topicsToShow.add(topic);
                 }
                 // The view may not be able to handle UI updates anymore
@@ -97,6 +98,59 @@ public class TopicsPresenter implements TopicsContract.Presenter {
         });
     }
 
+    //Selection sort ascending order by upvotes and downvotes
+    public List<Topic> doSortShowTopTopics(List<Topic> topics) {
+        for (int i = 0; i < topics.size() - 1; i++) {
+            int index = i;
+            for (int j = i + 1; j < topics.size(); j++) {
+                if ((topics.get(j).getUpVote() - topics.get(j).getDownVote()) >
+                        (topics.get(index).getUpVote() - topics.get(index).getDownVote())) {
+                    index = j;
+                }
+            }
+            Topic smallerNumber = new Topic(topics.get(index).getTitle(),
+                    topics.get(index).getUpVote(), topics.get(index).getDownVote(), topics.get(index).getId());
+
+            topics.get(index).setTopic(topics.get(i));
+            topics.get(i).setTopic(smallerNumber);
+        }
+        return topics;
+    }
+    //Show top 20 topics first
+    public List<Topic> showTopTopics(List<Topic> topics) {
+        List<Topic> topicsResult = new ArrayList<Topic>();
+        List<Topic> topicsSorted = doSortShowTopTopics(topics);
+        ArrayList<String> ids = new ArrayList<String>();
+
+        //Add to topicsResult top 20 topics
+        if(topicsSorted.size() > 20) {
+            for(int i = 0; i < 20; i++) {
+                topicsResult.add(topicsSorted.get(i));
+                ids.add(topicsSorted.get(i).getId());
+            }
+        } else {
+            for(int i = 0; i < topicsSorted.size(); i++) {
+                topicsResult.add(topicsSorted.get(i));
+                ids.add(topicsSorted.get(i).getId());
+            }
+        }
+
+        //Add to topicsResult another topics ecxept 20 top topics
+        for(int i = 0; i < topics.size(); i++) {
+            boolean isEqual = false;
+            for(int j = 0; j < ids.size(); j++) {
+                if(topics.get(i).getId().equals(ids.get(j))) {
+                    isEqual = true;
+                }
+            }
+
+            if(!isEqual){
+                topicsResult.add(topics.get(i));
+            }
+        }
+        return topicsResult;
+    }
+
     private void processTopics(List<Topic> topics) {
         if (topics.isEmpty()) {
             processEmptyTopics();
@@ -118,7 +172,6 @@ public class TopicsPresenter implements TopicsContract.Presenter {
     @Override
     public void upVote(Topic upVote) {
         mTopicsRepository.upVoteTppic(upVote);
-        Log.e(" --- "," --- upvote 1");
         loadTasks(false, false);
     }
 

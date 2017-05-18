@@ -5,9 +5,6 @@ package com.kyrmyzyanik.carouselltest.data.source;
  */
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.util.Log;
-
 import com.kyrmyzyanik.carouselltest.data.Topic;
 
 import java.util.ArrayList;
@@ -119,8 +116,9 @@ public class TopicsRepository implements TopicsDataSource {
             mCachedTopics = new LinkedHashMap<>();
         }
         mCachedTopics.clear();
+
         for (Topic topic : topics) {
             mCachedTopics.put(topic.getId(), topic);
-}
+        }
     }
 }

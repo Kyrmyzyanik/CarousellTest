@@ -279,7 +279,6 @@ public class TopicsFragment extends Fragment implements TopicsContract.View {
                     int n = topic.getUpVote() + 1;
                     topic.setUpVote(n);
                     mItemListener.onUpVoteClick(topic);
-                    Log.e(" --- "," --- upvote");
                 }
             });
 
@@ -288,9 +287,7 @@ public class TopicsFragment extends Fragment implements TopicsContract.View {
                 public void onClick(View v) {
                     int n = topic.getDownVote() + 1;
                     topic.setDownVote(n);
-
                     mItemListener.onDownVoteClick(topic);
-                    Log.e(" --- "," --- downvote");
                 }
             });
 

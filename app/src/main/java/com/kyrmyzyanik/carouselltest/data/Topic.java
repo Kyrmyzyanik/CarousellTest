@@ -55,6 +55,13 @@ public class Topic {
         mDownVote = downVote;
     }
 
+    public void setTopic(Topic t) {
+        mId = t.mId;
+        mTitle = t.mTitle;
+        mUpVote = t.mUpVote;
+        mDownVote = t.mDownVote;
+    }
+
     @NonNull
     public String getId() {
         return mId;
@@ -63,14 +70,6 @@ public class Topic {
     @Nullable
     public String getTitle() {
         return mTitle;
-    }
-
-    public void setUpVote(@NonNull int mUpVote) {
-        this.mUpVote = mUpVote;
-    }
-
-    public void setDownVote(@NonNull int mDownVote) {
-        this.mDownVote = mDownVote;
     }
 
     @NonNull
@@ -109,5 +108,23 @@ public class Topic {
     public String toString() {
         return "Topic with title " + mTitle;
     }
+
+
+    public void setId(@NonNull String mId) {
+        this.mId = mId;
+    }
+
+    public void setTitle(@Nullable String mTitle) {
+        this.mTitle = mTitle;
+    }
+
+    public void setUpVote(@NonNull int mUpVote) {
+        this.mUpVote = mUpVote;
+    }
+
+    public void setDownVote(@NonNull int mDownVote) {
+        this.mDownVote = mDownVote;
+    }
+
 }
 
