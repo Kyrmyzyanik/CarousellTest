@@ -110,4 +110,9 @@ public class TopicsLocalDataSource implements TopicsDataSource {
 
         db.close();
     }
+
+    @Override
+    public void refreshTopics() {
+
+    }
 }

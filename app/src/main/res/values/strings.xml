@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">CarousellTest</string>
+
+    <string name="loading_topics_error">Error while loading topics</string>
+    <string name="no_topics_all">There are no topics. Please create your first topic. </string>
+    <string name="no_topics_add">Add a topic +</string>
+    <string name="add_topic">Add a topic</string>
+    <string name="title_hint">Enter topic title</string>
+    <string name="successfully_saved_topic_message">Topic saved</string>
+
 </resources>

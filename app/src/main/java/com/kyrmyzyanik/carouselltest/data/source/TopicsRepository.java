@@ -28,6 +28,12 @@ public class TopicsRepository implements TopicsDataSource {
 
     Map<String, Topic> mCachedTopics;
 
+    /**
+     * Marks the cache as invalid, to force an update the next time data is requested. This variable
+     * has package local visibility so it can be accessed from tests.
+     */
+    boolean mCacheIsDirty = false;
+
     private TopicsRepository(@NonNull TopicsDataSource topicsLocalDataSource) {
         mTopicsLocalDataSource = checkNotNull(topicsLocalDataSource);
     }
@@ -60,7 +66,7 @@ public class TopicsRepository implements TopicsDataSource {
     public void getTopics(@NonNull final LoadTopicsCallback callback) {
         checkNotNull(callback);
 
-        if (mCachedTopics != null) {
+        if (mCachedTopics != null && !mCacheIsDirty) {
             callback.onTopicsLoaded(new ArrayList<>(mCachedTopics.values()));
             return;
         }
@@ -98,6 +104,11 @@ public class TopicsRepository implements TopicsDataSource {
             mCachedTopics = new LinkedHashMap<>();
         }
         mCachedTopics.clear();
+    }
+
+    @Override
+    public void refreshTopics() {
+        mCacheIsDirty = true;
     }
 
     private void refreshCache(List<Topic> topics) {

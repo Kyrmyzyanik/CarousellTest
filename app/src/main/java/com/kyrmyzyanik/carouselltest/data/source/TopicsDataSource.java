@@ -31,4 +31,6 @@ public interface TopicsDataSource {
     void saveTopic(@NonNull Topic topic);
 
     void deleteAllTopics();
+
+    void refreshTopics();
 }

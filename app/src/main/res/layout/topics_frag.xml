@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.kyrmyzyanik.carouselltest.topics.ScrollChildSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/refresh_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/topicsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/topicsLL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/topics_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/noTopics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/noTopicsMain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/no_topics_all"
+                android:layout_marginBottom="@dimen/list_item_padding" />
+            <TextView
+                android:id="@+id/noTopicsAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:background="@drawable/touch_feedback"
+                android:gravity="center"
+                android:text="@string/no_topics_add" />
+        </LinearLayout>
+    </RelativeLayout>
+</com.kyrmyzyanik.carouselltest.topics.ScrollChildSwipeRefreshLayout>
+
